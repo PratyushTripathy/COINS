@@ -1,0 +1,39 @@
+# This file contains metadata for your plugin. Since 
+# version 2.0 of QGIS this is the proper way to supply 
+# information about a plugin. The old method of 
+# embedding metadata in __init__.py will 
+# is no longer supported since version 2.0.
+
+# This file should be included when you package your plugin.# Mandatory items:
+
+[general]
+name=Network Continuity
+qgisMinimumVersion=3.0
+description=This plugin extracts the hierarchy from the network vector layer.
+version=0.1
+author=Pratyush Tripathy
+email=pratkrt@gmail.com
+
+about=This plugin takes a line type vector layer as an input an merges the edges based on the deflection angle between two consecutive edges. Hence, deducing the hierarchy of the network. Ex. street network layer of a city.
+
+tracker=http://bugs
+repository=http://repo
+# End of mandatory metadata
+
+# Recommended items:
+
+# Uncomment the following line and add your changelog:
+# changelog=
+
+# Tags are comma separated with spaces allowed
+tags=python
+
+homepage=http://homepage
+category=Vector
+icon=icon.png
+# experimental flag
+experimental=True
+
+# deprecated flag (applies to the whole plugin, not just a single version)
+deprecated=False
+
