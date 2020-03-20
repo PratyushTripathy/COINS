@@ -11,5 +11,3 @@ The details of the algorithm is mentioned in the following journal article.<br/>
 Pratyush Tripathy, Pooja Rao, Krishnachandran Balakrishnan & Teja Malladi <br/>
 Geospatial Lab, Indian Innstitute for Human Settlements, Bengaluru - 560080, India<br/>
 
-Maintainer: Pratyush Tripathy<br/>
-Email: pratyush@iihs.ac.in, pratkrt@gmail.com
