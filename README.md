@@ -1,4 +1,4 @@
-# CONTRA - Continuous Road Algortihm
+# CONTRA - Continuous Roads Algortihm
 This repository contains the source code of the CONTRA tool that allows to deduce natural continuity of street network.<br/>
 
 The image below shows the input street network data from the OSM, and its corresponding output from the CONTRA tool. For visualisation purpose, classification (natural breaks 'Jenks') was done based on the length of the street strokes in the resulting shapefile.<br/>
