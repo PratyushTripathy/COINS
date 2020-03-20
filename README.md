@@ -1,4 +1,4 @@
-# CONTRA - Continuous Roads Algortihm
+# CONTRA - Continuous Road Algortihm
 This repository contains the source code of the CONTRA tool that allows to deduce natural continuity of street network.<br/>
 
 The image below shows the input street network data from the OSM, and its corresponding output from the CONTRA tool. For visualisation purpose, classification (natural breaks 'Jenks') was done based on the length of the street strokes in the resulting shapefile.<br/>
@@ -11,5 +11,5 @@ The details of the algorithm is mentioned in the following journal article.<br/>
 Pratyush Tripathy, Pooja Rao, Krishnachandran Balakrishnan, Teja Malladi <br/>
 Geospatial Lab, Indian Innstitute for Human Settlements, Bengaluru - 560080, India<br/>
 
-Maintainer: Pratyush Tripathy
+Maintainer: Pratyush Tripathy<br/>
 Email: pratyush@iihs.ac.in, pratkrt@gmail.com
