@@ -2,8 +2,8 @@
 This repository contains the source code of the COINS tool that allows to deduce natural continuity of street network.<br/>
 
 The image below shows the input street network data from the OSM, and its corresponding output from the COINS tool. For visualisation purpose, classification (natural breaks 'Jenks') was done based on the length of the street strokes in the resulting shapefile.<br/>
-<img src="Images/Input.png" height="400" width="400">
-<img src="Images/Output.png" height="400" width="400">
+<img src="Images/Input.png" height="200" width="200">
+<img src="Images/Output.png" height="200" width="200">
 
 There are two ways of accessing the tool, one is the Python script, which can be found [here](/PythonTool). Second way of using is the QGIS plugin, source code and details are [here](/QGISplugin).
 
