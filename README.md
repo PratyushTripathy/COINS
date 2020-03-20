@@ -7,4 +7,4 @@ The image below shows the input street network data from the OSM, and its corres
 There are two ways of accessing the tool, one is the Python script, which can be found [here](/PythonTool). Second way of using is the QGIS plugin, source code and details are [here](/QGISplugin).
 
 The detailed description of the workflow is decribed in mentioned in the following journal article.<br/>
-### Tripathy, P., Rao, P., Balakrishnan, K., & Malladi, T. An open-source tool to extract natural continuity and hierarchy of urban street networks.
+### Tripathy, P., Rao, P., Balakrishnan, K., & Malladi, T. (forthcoming). An open-source tool to extract natural continuity and hierarchy of urban street networks.
