@@ -10,9 +10,9 @@ There are two ways of accessing the tool, one is the Python script, which can be
 The following full length journal article elucidates the algorithm:<br/>
 
 **Title**<br/>
-An open-source tool to extract natural continuity and hierarchy of urban street networks.[forthcoming] <br/>
+An open-source tool to extract natural continuity and hierarchy of urban street networks. [forthcoming] <br/>
 **Authors**<br/>
-Pratyush Tripathy, Pooja Rao, Krishnachandran Balakrishnan & Teja Malladi <br/>
+Pratyush Tripathy<br/>Pooja Rao<br/>Krishnachandran Balakrishnan<br/>Teja Malladi <br/>
 **Affiliation**<br/>
 Geospatial Lab, Indian Institute for Human Settlements, Bengaluru - 560080, India<br/>
 
