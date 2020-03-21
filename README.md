@@ -16,4 +16,5 @@ Pratyush Tripathy, Pooja Rao, Krishnachandran Balakrishnan & Teja Malladi <br/>
 **Affiliation**<br/>
 Geospatial Lab, Indian Institute for Human Settlements, Bengaluru - 560080, India<br/>
 
-This work was supported is a part of the PEAK Urban project at the Indian Institute for Human Settlements.
+**Funding**<br/>
+This work was completed with support from the PEAK Urban programme, funded by UKRI’s Global Challenge Research Fund, Grant Ref: ES/P011055/1
