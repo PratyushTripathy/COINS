@@ -4,4 +4,4 @@ This repository contains the source code of the COINS QGIS plugin. The plugin is
 
 Note: The plugin has been marked as experimental for now. Make sure that you check the *show experimental plugins* box in the settings, as shown below.<br/>
 
-The plugin is the output of published journal article published, check details [here](../). For automation or batch processing purposes, find the back-end algorithm of this plugin as a Python script [here](../PythonTool).
+The plugin is the output of published journal article published, check details [here](../../../). For automation or batch processing purposes, find the back-end algorithm of this plugin as a Python script [here](../PythonTool).
