@@ -8,7 +8,7 @@ Date: 14 December 2018
 
 """
 
-import os, sys, math, time, multiprocessing
+import os, sys, math, time, multiprocessing, json
 from functools import partial
 import numpy as np
 from qgis.core import QgsVectorLayer
@@ -24,6 +24,14 @@ sys.setrecursionlimit(10000)
 path = os.path.abspath(os.path.join(sys.exec_prefix, '../../bin/pythonw.exe'))
 multiprocessing.set_executable(path)
 sys.argv = [ None ]
+
+def getPythonPath():
+    path = os.__file__.split('\\')
+    path.pop()
+    path.pop()
+    path = '\\'.join(path)
+    return(path)
+
 """
 The imported shapefile lines comes as tuple, whereas
 the export requires list, this finction converts tuple
@@ -152,66 +160,17 @@ def angleBetweenTwoLines(line1, line2):
             angle = pointsSetAngle([l1p2, l1p1], [l2p2,l2p1])
     return(angle)
 
-def getLinksMultiprocessing(n, total, tempArray):
-    # Create mask for adjacent edges as endpoint 1
-    m1 = tempArray[:,1]==tempArray[n,1]
-    m2 = tempArray[:,2]==tempArray[n,1]
-    mask1 = m1 + m2
-
-    # Create mask for adjacent edges as endpoint 2
-    m1 = tempArray[:,1]==tempArray[n,2]
-    m2 = tempArray[:,2]==tempArray[n,2]
-    mask2 = m1 + m2
-
-    # Use the tempArray to extract only the uniqueIDs of the adjacent edges at both ends
-    mask1 = tempArray[:,0][~(mask1==0)]
-    mask2 = tempArray[:,0][~(mask2==0)]
-
-    # Links (excluding the segment itself) at both the ends are converted to list and added to the 'unique' attribute
-    return(n, list(mask1[mask1 != n]), list(mask2[mask2 != n]))
-
-def mergeLinesMultiprocessing(n, total, uniqueDict):
-    outlist = set()
-    currentEdge1 = n
-
-    outlist.add(currentEdge1)
-
-    while True:
-        if type(uniqueDict[currentEdge1][6]) == type(1) and \
-           uniqueDict[currentEdge1][6] not in outlist:
-            currentEdge1 = uniqueDict[currentEdge1][6]
-            outlist.add(currentEdge1)
-        elif type(uniqueDict[currentEdge1][7]) == type(1) and \
-           uniqueDict[currentEdge1][7] not in outlist:
-            currentEdge1 = uniqueDict[currentEdge1][7]
-            outlist.add(currentEdge1)
-        else:
-            break
-    currentEdge1 = n
-    while True:
-        if type(uniqueDict[currentEdge1][7]) == type(1) and \
-           uniqueDict[currentEdge1][7] not in outlist:
-            currentEdge1 = uniqueDict[currentEdge1][7]
-            outlist.add(currentEdge1)
-        elif type(uniqueDict[currentEdge1][6]) == type(1) and \
-           uniqueDict[currentEdge1][6] not in outlist:
-            currentEdge1 = uniqueDict[currentEdge1][6]
-            outlist.add(currentEdge1)
-        else:
-            break
-
-    outlist = list(outlist)
-    outlist.sort()
-    return(outlist)
     
 class network():
     def __init__(self, inFile):
         self.fileWithPath = inFile
         self.directory, self.name = os.path.split(inFile)
         self.tempDirectory = os.path.join(self.directory, 'tempDirectory')
-        self.getProjection()
         if not os.path.exists(self.tempDirectory):
             os.mkdir(self.tempDirectory)
+        self.pluginDirectory = os.path.dirname(__file__)
+        self.pythonPath = getPythonPath()
+        self.getProjection()
         
     def getProjection(self):
         with open(self.fileWithPath.replace('.shp', '')+".prj", "r") as stream:
@@ -253,19 +212,34 @@ class network():
     def getLinks(self):
         self.tempArray = np.array(self.tempArray, dtype=object)
         
-        iterations = [n for n in range(0,len(self.unique))]
+        # Defining all the file names to run from command prompt
+        getLinksModulePath = os.path.join(self.pluginDirectory, 'get_links_parallel.py')
+        inputTempArrayFile = os.path.join(self.pluginDirectory, 'array_to_link.npy')
+        outputTempArrayFile = os.path.join(self.pluginDirectory, 'linked_array.npy')
         
-        pool = multiprocessing.Pool(multiprocessing.cpu_count())
-        constantParameterFunction = partial(getLinksMultiprocessing, total=len(self.unique), tempArray=self.tempArray)
-        result = pool.map(constantParameterFunction, iterations)
-        pool.close()
-        pool.join()
-        iterations = None
+        # Save the temporary array as hard file
+        np.save(inputTempArrayFile, self.tempArray)
+        
+        # Run the parallel processing modult to get links from stored tempArray
+        command = 'cd %s & python %s --input %s --output %s' % (self.pythonPath, getLinksModulePath, inputTempArrayFile, outputTempArrayFile)
+        print(command)
+        os.system(command)
+        
+        while True:
+            if os.path.exists(outputTempArrayFile):
+                break
 
+        print('Loop broke')
+        
+        # Load the processed array
+        result = list(np.load(outputTempArrayFile, allow_pickle=True))
+        
+        # Loop through the result and add it to unique dictionary
         for a in result:
             n = a[0]
             self.unique[n][2] = a[1]
             self.unique[n][3] = a[2]
+        print('Links done', len(result))
             
     def bestLink(self):
         self.anglePairs = dict()
@@ -347,14 +321,28 @@ class network():
         self.mergingList = list()
         self.merged = list()
 
-        iterations = [n for n in range(0,len(self.unique))]
+        # Defining all the file names to run from command prompt
+        mergeLinesModulePath = os.path.join(self.pluginDirectory, 'merge_lines_parallel.py')
+        inputDictionaryFile = os.path.join(self.pluginDirectory, 'unique_dict.json')
+        outputDictionaryFile = os.path.join(self.pluginDirectory, 'unique_dict_merged_list.npy')
         
-        pool = multiprocessing.Pool(multiprocessing.cpu_count())
-        constantParameterFunction = partial(mergeLinesMultiprocessing, total=len(self.unique), uniqueDict=self.unique)
-        result = pool.map(constantParameterFunction, iterations)
-        pool.close()
-        pool.join()
-        iterations = None
+        # Save the dictionary as JSON file
+        with open(inputDictionaryFile, 'w') as fp:
+            json.dump(self.unique, fp)
+        
+        # Run the parallel processing modult to get links from stored tempArray
+        command = 'cd %s & python %s --input %s --output %s' % (self.pythonPath, mergeLinesModulePath, inputDictionaryFile, outputDictionaryFile)
+        os.system(command)
+        print(command)
+
+        """
+        while True:
+            if os.path.exists(outputDictionaryFile):
+                break
+        """
+        
+        # Load the list cntaining merged information
+        result = list(np.load(outputDictionaryFile, allow_pickle=True))
 
         for tempList in result:
             if not tempList in self.mergingList:

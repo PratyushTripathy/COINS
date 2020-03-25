@@ -13,6 +13,12 @@
   <property name="windowTitle">
    <string>COINS - Continuity in Street Networks</string>
   </property>
+  <property name="toolTip">
+   <string/>
+  </property>
+  <property name="statusTip">
+   <string/>
+  </property>
   <widget class="QLineEdit" name="outputPreMergeFileName">
    <property name="enabled">
     <bool>false</bool>
@@ -90,6 +96,18 @@
      <width>141</width>
      <height>16</height>
     </rect>
+   </property>
+   <property name="mouseTracking">
+    <bool>true</bool>
+   </property>
+   <property name="toolTip">
+    <string notr="true" comment="The acute angle formed between any two consecutive segments." extracomment="The acute angle formed between any two consecutive segments."/>
+   </property>
+   <property name="toolTipDuration">
+    <number>1</number>
+   </property>
+   <property name="statusTip">
+    <string notr="true" comment="The acute angle formed between any two consecutive segments." extracomment="The acute angle formed between any two consecutive segments."/>
    </property>
    <property name="text">
     <string>Deflection Angle Threshold</string>
@@ -174,6 +192,18 @@
      <height>21</height>
     </rect>
    </property>
+   <property name="focusPolicy">
+    <enum>Qt::StrongFocus</enum>
+   </property>
+   <property name="toolTip">
+    <string notr="true" comment="The acute angle formed between any two consecutive segments." extracomment="The acute angle formed between any two consecutive segments."/>
+   </property>
+   <property name="toolTipDuration">
+    <number>1</number>
+   </property>
+   <property name="statusTip">
+    <string notr="true" comment="The acute angle formed between any two consecutive segments." extracomment="The acute angle formed between any two consecutive segments."/>
+   </property>
   </widget>
   <widget class="QPushButton" name="SelectOutputLayerButton">
    <property name="geometry">
@@ -220,7 +250,7 @@
     <string>...</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="processButton_2">
+  <widget class="QPushButton" name="cancelButton">
    <property name="geometry">
     <rect>
      <x>570</x>

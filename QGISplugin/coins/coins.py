@@ -30,7 +30,7 @@ from .streetHierarchy import network
 from .resources import *
 # Import the code for the dialog
 from .coins_dialog import NetworkContinuityDialog
-import os.path, time, shutil
+import os.path, time, shutil, math, glob
 
 
 class NetworkContinuity:
@@ -222,6 +222,16 @@ class NetworkContinuity:
         except:
             pass
 
+    def startProcessing(self):
+        #self.iface.messageBar().pushMessage("Running COINS tool..", level=0, duration=3)
+        #self.iface.mainWindow().repaint()
+        #self.iface.statusBarIface().showMessage("Processed {} %".format(int(60)))
+        self.processNetworkVector()
+        
+        time.sleep(4)
+        self.iface.messageBar().pushMessage("Processing complete.", level=3, duration=3)
+        self.dlg.close()
+        
     def processNetworkVector(self):
         t1 = time.time()
         inFile = self.infile
@@ -236,6 +246,7 @@ class NetworkContinuity:
 
         #Compute connectivity table
         myNetwork.getLinks()
+        
         #Find best link at every point for both lines
         myNetwork.bestLink()
         #Cross check best links
@@ -246,14 +257,29 @@ class NetworkContinuity:
         if self.dlg.preMergeCheckBox.isChecked():
             myNetwork.exportPreMerged(outPreMergedFile)
         myNetwork.exportMerged(outMergedFile)
+        
         t2 = time.time()
-        message = "Process complete in %f minutes" % (round((t2-t1)/60,2))
+        print(t2-t1)
+        minutes = math.floor((t2-t1) / 60)
+        seconds = (t2 - t1) % 60
+        message = "Process complete in %d minutes %.2f seconds." % (minutes, seconds)
+        self.iface.messageBar().pushMessage(message, level=3, duration=3)
+        
         temp = myNetwork.tempDirectory
         time.sleep(1)
         myNetwork = None
-        print(message)
+                
+        os.chdir(self.plugin_dir)
+        tempFiles = glob.glob('*.npy')
+        tempFiles.append(glob.glob('*.json')[0])
+        for file in tempFiles:
+            shutil.rmtree(file)
+        
         if os.path.exists(temp):
-            shutil.rmtree(temp)
+            try:
+                shutil.rmtree(temp)
+            except:
+                pass
 
     def run(self):
         """Run method that performs all the real work"""
@@ -263,38 +289,37 @@ class NetworkContinuity:
         if self.first_start == True:
             self.first_start = False
             self.dlg = NetworkContinuityDialog()
+            self.angleThreshold = 0
+        
+            #method_list = [func for func in dir(self.iface.statusBarIface) if callable(getattr(self.iface.statusBarIface, func))]
+            #print(method_list)
+            
+            
             self.dlg.SelectInputLayerButton.clicked.connect(self.select_input_file)
             self.dlg.SelectOutputLayerButton.clicked.connect(self.select_output_file)
             self.dlg.preMergeCheckBox.stateChanged.connect(self.activate_premerge_field)
-            self.dlg.processButton.clicked.connect(self.processNetworkVector)
-            self.angleThreshold = 0
+            self.dlg.processButton.clicked.connect(self.startProcessing)
+            self.dlg.cancelButton.clicked.connect(self.dlg.close)
+            self.dlg.comboBox.setEditable(True)
+            self.dlg.comboBox.currentIndexChanged.connect(self.update_output_file)
             
-        self.dlg.comboBox.setEditable(True)
-        self.dlg.comboBox.currentIndexChanged.connect(self.update_output_file)
-        
-        #Clear all the fields in the GUI at the start-up
-        self.dlg.outputHeirarchyFileName.setText("")
-        self.dlg.SelectPreMergeOutputButton.setText("")
-        self.dlg.progressBar.setValue(0)
-        # Get all the layers already added to the sesison
-        self.layers = self.iface.mapCanvas().layers()
-        self.layersList = list()
-        for layer in self.layers:
-            self.layersList.append(layer.source())
-        self.dlg.comboBox.clear()
-        self.dlg.comboBox.addItems(self.layersList)
-        self.dlg.angleThresholdValue.textChanged.connect(self.update_threshold)
+            #Clear all the fields in the GUI at the start-up
+            self.dlg.outputHeirarchyFileName.setText("")
+            self.dlg.SelectPreMergeOutputButton.setText("")
+            self.dlg.progressBar.setValue(0)
+            # Get all the layers already added to the sesison
+            self.layers = self.iface.mapCanvas().layers()
+            self.layersList = list()
+            for layer in self.layers:
+                self.layersList.append(layer.source())
+            self.dlg.comboBox.clear()
+            self.dlg.comboBox.addItems(self.layersList)
+            self.dlg.angleThresholdValue.textChanged.connect(self.update_threshold)
 
         # show the dialog
         self.dlg.show()
         # Run the dialog event loop
         result = self.dlg.exec_()
-        # See if OK was pressed
+        
         if result:
-            self.processNetworkVector()
-            self.iface.messageBar().pushMessage("Running COINS tool..", duration=3)
-            
-            self.dlg.progressBar.setValue(60)
-            # Do something useful here - delete the line containing pass and
-            # substitute with your code.
             pass
