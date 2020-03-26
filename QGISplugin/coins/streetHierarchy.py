@@ -222,14 +222,12 @@ class network():
         
         # Run the parallel processing modult to get links from stored tempArray
         command = 'cd %s & python %s --input %s --output %s' % (self.pythonPath, getLinksModulePath, inputTempArrayFile, outputTempArrayFile)
-        print(command)
+        #print(command)
         os.system(command)
         
         while True:
             if os.path.exists(outputTempArrayFile):
                 break
-
-        print('Loop broke')
         
         # Load the processed array
         result = list(np.load(outputTempArrayFile, allow_pickle=True))
@@ -239,7 +237,6 @@ class network():
             n = a[0]
             self.unique[n][2] = a[1]
             self.unique[n][3] = a[2]
-        print('Links done', len(result))
             
     def bestLink(self):
         self.anglePairs = dict()
@@ -278,8 +275,6 @@ class network():
                 self.unique[edge][5] = 'DeadEnd'
 
     def crossCheckLinks(self, angleThreshold=0):
-        global edge, bestP1, bestP2
-        print("Cross-checking and finalising the links...")
         for edge in range(0,len(self.unique)):
             bestP1 = self.unique[edge][4][0]
             bestP2 = self.unique[edge][5][0]
@@ -317,7 +312,6 @@ class network():
                 self.addLine(link2, parent=edge, child=self.mainEdge)
         
     def mergeLines(self):
-        print('Merging Lines...')
         self.mergingList = list()
         self.merged = list()
 
@@ -333,7 +327,7 @@ class network():
         # Run the parallel processing modult to get links from stored tempArray
         command = 'cd %s & python %s --input %s --output %s' % (self.pythonPath, mergeLinesModulePath, inputDictionaryFile, outputDictionaryFile)
         os.system(command)
-        print(command)
+        #print(command)
 
         """
         while True:
@@ -350,7 +344,6 @@ class network():
                 self.merged.append({listToTuple(self.unique[key][0]) for key in tempList})
 
         self.merged = dict(enumerate(self.merged))
-        print('>'*50 + ' [%d/%d] '%(len(self.unique),len(self.unique)) + '100%' + '\n', end='\r')
     
     def setProjection(self, outFile):
         outName, ext = os.path.splitext(outFile)
