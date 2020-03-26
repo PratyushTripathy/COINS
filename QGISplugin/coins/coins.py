@@ -243,33 +243,21 @@ class NetworkContinuity:
         myNetwork = network(inFile)
         #Split lines
         myNetwork.splitLines()
-        t2 = time.time()
-        timeTaken(t1, t2, 'split lines')
         
         #Create unique ID
         myNetwork.uniqueID()
-        t3 = time.time()
-        timeTaken(t2, t3, 'assign unique ID')
         
         #Compute connectivity table
         myNetwork.getLinks()
-        t4 = time.time()
-        timeTaken(t3, t4, 'find links')
         
         #Find best link at every point for both lines
         myNetwork.bestLink()
-        t5 = time.time()
-        timeTaken(t4, t5, 'find best link')
         
         #Cross check best links
         myNetwork.crossCheckLinks(self.angleThreshold)
-        t6 = time.time()
-        timeTaken(t5, t6, 'cross check link')
         
         #Merge finalised links
         myNetwork.mergeLines()
-        t7 = time.time()
-        timeTaken(t6, t7, 'merge lines')
         
         #Export lines
         if self.dlg.preMergeCheckBox.isChecked():
@@ -282,7 +270,7 @@ class NetworkContinuity:
         seconds = (t2 - t1) % 60
         message = "Process complete in %d minutes %.2f seconds." % (minutes, seconds)
         self.iface.messageBar().pushMessage(message, level=3, duration=3)
-        
+        """
         temp = myNetwork.tempDirectory
         time.sleep(1)
         myNetwork = None
@@ -298,6 +286,7 @@ class NetworkContinuity:
                 shutil.rmtree(temp)
             except:
                 pass
+        """
 
     def run(self):
         """Run method that performs all the real work"""

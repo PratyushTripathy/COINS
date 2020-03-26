@@ -199,23 +199,28 @@ class network():
                     x1, y1, x2, y2 = roundCoordinates(x1, y1, x2, y2)
                     part = [[x1, y1], [x2, y2]]
                     if part not in self.split:
-                        self.split.append([part, computeOrientation(part), list(), list(), list(), list(), list(), list()])
-                        # Merge the coordinates as string, this will help in finding adjacent edges in the function below
+                        self.split.append(part)
                         self.tempArray.append([n, '%.4f_%.4f'%(part[0][0], part[0][1]), '%.4f_%.4f'%(part[1][0], part[1][1])])
                         n += 1
+        print('Number of split lines', len(self.split))
         
     def uniqueID(self):
     #Loop through split lines, assign unique ID and
     #store inside a list along with the connectivity dictionary
-        self.unique = dict(enumerate(self.split))
+        # Enumerate won't work because it is 
+        #self.unique = dict(enumerate(self.split))
+        self.unique = dict()
+        for edge in range(0,len(self.split)):
+            self.unique[edge] = [self.split[edge], computeOrientation(self.split[edge]), list(), list(), list(), list(), list(), list()]
+        
 
     def getLinks(self):
         self.tempArray = np.array(self.tempArray, dtype=object)
         
         # Defining all the file names to run from command prompt
         getLinksModulePath = os.path.join(self.pluginDirectory, 'get_links_parallel.py')
-        inputTempArrayFile = os.path.join(self.pluginDirectory, 'array_to_link.npy')
-        outputTempArrayFile = os.path.join(self.pluginDirectory, 'linked_array.npy')
+        inputTempArrayFile = os.path.join(self.tempDirectory, 'array_to_link.npy')
+        outputTempArrayFile = os.path.join(self.tempDirectory, 'linked_array.npy')
         
         # Save the temporary array as hard file
         np.save(inputTempArrayFile, self.tempArray)
@@ -292,24 +297,6 @@ class network():
                 self.unique[edge][7] = bestP2
             else:
                 self.unique[edge][7] = 'LineBreak'
-
-    def addLine(self, edge, parent=None, child='Undefined'):
-        if child=='Undefined':
-            self.mainEdge = len(self.merged)
-        if not edge in self.assignedList:
-            if parent==None:
-                currentid = len(self.merged)
-                self.merged[currentid] = set()
-            else:
-                currentid = self.mainEdge
-            self.merged[currentid].add(listToTuple(self.unique[edge][0]))
-            self.assignedList.append(edge)
-            link1 = self.unique[edge][6]
-            link2 = self.unique[edge][7]
-            if type(1) == type(link1):
-                self.addLine(link1, parent=edge, child=self.mainEdge)
-            if type(1) == type(link2):
-                self.addLine(link2, parent=edge, child=self.mainEdge)
         
     def mergeLines(self):
         self.mergingList = list()
@@ -317,8 +304,8 @@ class network():
 
         # Defining all the file names to run from command prompt
         mergeLinesModulePath = os.path.join(self.pluginDirectory, 'merge_lines_parallel.py')
-        inputDictionaryFile = os.path.join(self.pluginDirectory, 'unique_dict.json')
-        outputDictionaryFile = os.path.join(self.pluginDirectory, 'unique_dict_merged_list.npy')
+        inputDictionaryFile = os.path.join(self.tempDirectory, 'unique_dict.json')
+        outputDictionaryFile = os.path.join(self.tempDirectory, 'unique_dict_merged_list.npy')
         
         # Save the dictionary as JSON file
         with open(inputDictionaryFile, 'w') as fp:
@@ -344,7 +331,7 @@ class network():
                 self.merged.append({listToTuple(self.unique[key][0]) for key in tempList})
 
         self.merged = dict(enumerate(self.merged))
-    
+        
     def setProjection(self, outFile):
         outName, ext = os.path.splitext(outFile)
         with open(outName + ".prj", "w") as stream:

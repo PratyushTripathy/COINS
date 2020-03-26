@@ -16,7 +16,7 @@ email=pratkrt@gmail.com
 
 about=The plugin generates continuous street strokes based on the deflection angle between any two consecutive segments. The generated continous streets can be used to deduce the hierarchy of street network, or the rank of each street in the network
 
-tracker=http://bugs
+tracker=https://github.com/PratyushTripathy/COINS/issues
 repository=https://github.com/PratyushTripathy/COINS/tree/master/QGISplugin
 # End of mandatory metadata
 
