@@ -16,6 +16,7 @@ from qgis.PyQt.QtCore import QVariant
 import processing
 from qgis.core import *
 from PyQt5.QtGui import QFont
+from osgeo import ogr
 
 t1 = time.time()
 
@@ -202,6 +203,33 @@ class network():
                         self.split.append(part)
                         self.tempArray.append([n, '%.4f_%.4f'%(part[0][0], part[0][1]), '%.4f_%.4f'%(part[1][0], part[1][1])])
                         n += 1
+        print('Number of split lines', len(self.split))
+            
+    def splitLines1(self):
+        self.split = []
+        self.tempArray = []
+        
+        driver = ogr.GetDriverByName('ESRI Shapefile')
+        dataSource = driver.Open(self.fileWithPath, 0)
+        layer = dataSource.GetLayer()
+            
+        n = 0
+        for feature in layer:
+            geom = feature.GetGeometryRef()
+            for lineEdge in range(geom.GetPointCount()):
+                if not (geom.GetPointCount()-1) == lineEdge:
+                    coor1, coor2 = geom.GetPoint_2D(lineEdge), geom.GetPoint_2D(lineEdge+1)
+                else:
+                    coor1, coor2 = geom.GetPoint_2D(geom.GetPointCount()-2), geom.GetPoint_2D(geom.GetPointCount()-1)
+
+                x1, y1 = coor1
+                x2, y2 = coor2
+                x1, y1, x2, y2 = roundCoordinates(x1, y1, x2, y2)
+                part = [[x1, y1], [x2, y2]]
+                if part not in self.split:
+                    self.split.append(part)
+                    self.tempArray.append([n, '%.4f_%.4f'%(part[0][0], part[0][1]), '%.4f_%.4f'%(part[1][0], part[1][1])])
+                    n += 1
         print('Number of split lines', len(self.split))
         
     def uniqueID(self):
