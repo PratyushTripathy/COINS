@@ -1,9 +1,9 @@
-This is the Python version of the COINS tool. Although it can be run on any IDLE including Spyder, Pycharm, Jupyter Notebook, etc.; it is advised to run the script from the command prompt shell for fast processing. Below are the steps to use this tool.<br/>
+This is the Python version of the COINS tool. Although it can be run on any IDLE including Spyder, Pycharm, Jupyter Notebook, etc.; it is advised to run the script from the command prompt shell for fast processing.<br/>
 
-
+## Installation instructions
 1. Install Python 3x and necessary libraries including NumPy and PyShp.<br/>
 2. Place the input files/ file in a directory. Make sure any other shapefile (point or polygon) is not present in the directory.<br/>
-3. In the script, update the working directory in line xxx.<br/>
+3. In the script, update the working directory in line 458.<br/>
 4. Open the command prompt shell in the directory where your Python script is located.<br/>
 5. Use the following command.<br/>
 &nbsp;If Python is added to your PC's environment path variables:<br/>
