@@ -10,3 +10,6 @@ This is the Python version of the COINS tool. Although it can be run on any IDLE
 &nbsp;&nbsp;`python NameOfTheScript.py`<br/>
 &nbsp;If Python is not in your PC's environment path variables:<br/>
 &nbsp;&nbsp;`path/to/python NameOfTheScript.py`<br/>
+
+The video below demonstrates to use the tool when Python is not added to PC's environment path variables.<br/>
+![](../Images/PythonToolVideo.mp4)<br/>
