@@ -1,7 +1,7 @@
 # COINS - Continuity in Street Networks
 This repository contains the source code of the COINS tool that allows to deduce natural continuity of street network.<br/>
 
-The image below shows the input street network data from the OSM, and its corresponding output from the COINS tool. For visualisation purpose, classification (natural breaks 'Jenks') was done based on the length of the street strokes in the resulting shapefile.<br/>
+The image below shows the input street network data from the OSM, and its corresponding output from the COINS tool. For visualisation purpose, classification (natural breaks 'Jenks') was done on the length of the street strokes in the resulting shapefile.<br/>
 <img src="Images/Input.png" height="250" width="250">
 <img src="Images/Output.png" height="250" width="250">
 
