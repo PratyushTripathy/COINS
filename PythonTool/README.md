@@ -1,4 +1,4 @@
-This is the Python version of the COINS tool. Although it can be run on any IDLE including Spyder, Pycharm, Jupyter Notebook, etc.; it is advised to run the script from the command prompt shell for fast processing.<br/>
+This is the Python version of the COINS tool. Although it can be run on any IDLE (Spyder, Pycharm, Jupyter Notebook, etc.), it is advised to run the script from the command prompt shell for fast processing.<br/>
 
 ## Installation instructions
 1. Install Python 3x and necessary libraries including NumPy and PyShp.<br/>
