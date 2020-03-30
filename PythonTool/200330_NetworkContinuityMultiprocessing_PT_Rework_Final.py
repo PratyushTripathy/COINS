@@ -2,7 +2,7 @@
 This Python script generates strokes from the line type ESRI shapefiles, mainly roads.
 
 Author: Pratyush Tripathy
-Date: 14 November 2019
+Date: 29 February 2020
 Version: 0.2
 
 The script is a supplementary material to the full length article:
@@ -417,7 +417,9 @@ class line():
         
 #Export requires 3 brackets, all in list form,
 #Whereas it reads in 3 brackets, inner one as tuple
-    def exportPreMerge(self, outFile="preMergeSegments.shp", unique = True):
+    def exportPreMerge(self, outFile=None, unique = True):
+        if outFile == None:
+            outFile = "%s_pythonScriptPreMerge_%s.shp" % (self.name, time.strftime('%Y%m%d')[2:])
         with shp.Writer(outFile) as w:
             fields = ['UniqueID', 'Orientation', 'linksP1', 'linksP2', 'bestP1', 'bestP2', 'P1Final', 'P2Final']
             for f in fields:
@@ -459,16 +461,13 @@ myDir = r"E:\StreetHierarchy\Cities_OSMNX_Boundary"
 os.chdir(myDir)
 
 import glob
-processing_time = dict()
 
 if __name__ == '__main__':
     # If you wish to processone file only, change the name in the line below
-    for folder in glob.glob("*/"):
-        os.chdir(os.path.join(myDir, folder[:-1], 'edges'))
-        file = 'edges.shp'
+    for file in glob.glob("*.shp"):
         t1 = time.time()
 
-        print('\nProcessing %s...' % (folder[:-1]))
+        print('Processing file..\n%s\n' % (file))
         name, ext = os.path.splitext(file)
         #Read Shapefile
         myStreet = line(file)
@@ -492,9 +491,7 @@ if __name__ == '__main__':
         myStreet.exportStrokes()
         
         t2 = time.time()
-        dt = (t2-t1)/60
-        print("\n%s done in %f minutes." % (folder[:-1], dt))
-        processing_time[folder[:-1]] = dt
         
-        
-
+        minutes = math.floor((t2-t1) / 60)
+        seconds = (t2 - t1) % 60
+        print("Processing complete in %d minutes %.2f seconds." % (minutes, seconds))
