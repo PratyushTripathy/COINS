@@ -230,8 +230,8 @@ class NetworkContinuity:
         #self.iface.statusBarIface().showMessage("Processed {} %".format(int(60)))
         self.processNetworkVector()
         
-        time.sleep(4)
-        self.iface.messageBar().pushMessage("Processing complete.", level=3, duration=3)
+        #time.sleep(4)
+        #self.iface.messageBar().pushMessage("Processing complete.", level=3, duration=3)
         self.dlg.close()
         
     def processNetworkVector(self):
@@ -242,7 +242,7 @@ class NetworkContinuity:
         
         myNetwork = network(inFile)
         #Split lines
-        myNetwork.splitLines()
+        myNetwork.splitLines1()
         
         #Create unique ID
         myNetwork.uniqueID()
@@ -264,8 +264,8 @@ class NetworkContinuity:
             myNetwork.exportPreMerged(outPreMergedFile)
         myNetwork.exportMerged(outMergedFile)
         
-        t8 = time.time()
-        print('Processing completed in %.2f' % (t8-t1))
+        t2 = time.time()
+        print('Processing completed in %.2f' % (t2-t1))
         minutes = math.floor((t2-t1) / 60)
         seconds = (t2 - t1) % 60
         message = "Process complete in %d minutes %.2f seconds." % (minutes, seconds)
