@@ -5,7 +5,7 @@ The image below shows the input street network data from the OSM, and its corres
 <img src="Images/Input.png" height="250" width="250">
 <img src="Images/Output.png" height="250" width="250">
 
-There are two ways of accessing the tool, one is the Python script, which can be found [here](/PythonTool). Second way of using is the QGIS plugin, source code and details are [here](/QGISplugin).
+There are two ways of accessing the tool, one is the Python script, which can be found here [[link]](/PythonTool). Second way of using is the QGIS plugin, source code and details are here [[link]](/QGISplugin).
 
 ## Please use the following Bibtext entry to cite
 ```tex
