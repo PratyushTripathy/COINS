@@ -1,5 +1,5 @@
 # COINS - Continuity in Street Networks
-This repository contains the source code of the COINS tool that allows to deduce natural continuity of street network.<br/>
+This repository contains the source code of the COINS tool that allows to deduce natural continuity of street network. For continuity of streets, the deflection angle between adjacent segments are computed, the user can provide the desired angle threshold. Segments will only be considered a part of the same street if the deflection angle is above the threshold, the default value is zero.<br/>
 
 The image below shows the input street network data from the OSM, and its corresponding output from the COINS tool. For visualisation purpose, classification (natural breaks 'Jenks') was done on the length of the street strokes in the resulting shapefile.<br/>
 <img src="Images/Input.png" height="250" width="250">
