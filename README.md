@@ -23,7 +23,7 @@ ARTICLE-NUMBER = {xxx},
 URL = {https://xxxxxxxxxxxxxxxxxxxxxxxxx},
 ISSN = {xxxx-xxxx},
 ABSTRACT = {Will be updated with the final version},
-DOI = {10.xx.xx/xxx}
+DOI = {10.1177/2399808320967680}
 }
 ```
 
