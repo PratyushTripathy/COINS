@@ -10,7 +10,7 @@ There are two ways of accessing the tool, one is the Python script, which can be
 **Suggested citation**<br/>
 Tripathy, P., Rao, P., Balakrishnan, K., & Malladi, T. (2020). An open-source tool to extract natural continuity and hierarchy of urban street networks. Environment and Planning B: Urban Analytics and City Science. [http://dx.doi.org/10.1177/2399808320967680](http://dx.doi.org/10.1177/2399808320967680)<br/>
 
-## Bibtext entry:
+**Bibtext entry:**
 ```tex
 @article{tripathy2020open,
   title={An open-source tool to extract natural continuity and hierarchy of urban street networks},
