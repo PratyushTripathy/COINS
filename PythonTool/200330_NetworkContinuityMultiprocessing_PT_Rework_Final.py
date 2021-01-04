@@ -3,8 +3,8 @@
 This Python script generates strokes from the line type ESRI shapefiles, mainly roads.
 
 Author: Pratyush Tripathy
-Date: 29 February 2020
-Version: 0.2
+Date: 04 January 2020
+Version: 0.3
 
 The script is a supplementary material to the full length article:
 
