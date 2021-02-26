@@ -12,13 +12,14 @@ Tripathy, P., Rao, P., Balakrishnan, K., & Malladi, T. (2020). An open-source to
 
 **Bibtext entry:**
 ```tex
-@article{tripathy2020open,
+@article{tripathy2020,
   title={An open-source tool to extract natural continuity and hierarchy of urban street networks},
   author={Tripathy, Pratyush and Rao, Pooja and Balakrishnan, Krishnachandran and Malladi, Teja},
   journal={Environment and Planning B: Urban Analytics and City Science},
   pages={2399808320967680},
   publisher={SAGE Publications Sage UK: London, England},
-  doi={10.1177/2399808320967680}
+  doi={10.1177/2399808320967680},
+  URL = {https://doi.org/10.1177/2399808320967680}
 }
 ```
 
