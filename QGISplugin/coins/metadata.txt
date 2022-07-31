@@ -1,0 +1,39 @@
+# This file contains metadata for your plugin. Since 
+# version 2.0 of QGIS this is the proper way to supply 
+# information about a plugin. The old method of 
+# embedding metadata in __init__.py will 
+# is no longer supported since version 2.0.
+
+# This file should be included when you package your plugin.# Mandatory items:
+
+[general]
+name=COINS - Continuity in Street Networks
+qgisMinimumVersion=3.0
+description=This plugin deduces natural continuity and hierarchy of street network.
+version=0.1
+author=Pratyush Tripathy
+email=pratkrt@gmail.com
+
+about=The plugin generates continuous street strokes based on the deflection angle between any two consecutive segments. The generated continous streets can be used to deduce the hierarchy of street network, or the rank of each street in the network
+
+tracker=https://github.com/PratyushTripathy/COINS/issues
+repository=https://github.com/PratyushTripathy/COINS/tree/master/QGISplugin
+# End of mandatory metadata
+
+# Recommended items:
+
+# Uncomment the following line and add your changelog:
+# changelog=
+
+# Tags are comma separated with spaces allowed
+tags=urban streets, street hierarchy, network analysis
+
+homepage=https://github.com/PratyushTripathy/COINS/tree/master/QGISplugin
+category=Vector
+icon=icon.png
+# experimental flag
+experimental=True
+
+# deprecated flag (applies to the whole plugin, not just a single version)
+deprecated=False
+
