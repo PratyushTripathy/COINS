@@ -5,7 +5,7 @@ The image below shows the input street network data from the OSM, and its corres
 <img src="Images/Input.png" height="250" width="250">
 <img src="Images/Output.png" height="250" width="250">
 
-There are three ways of accessing the tool, the first and fastest one is through Python's momepy package, find details here [[link]](http://docs.momepy.org/en/latest/generated/momepy.COINS.html). Second way is the Python script version, which can be found here [[link]](/PythonTool). Third way of accessing is the QGIS plugin, source code and details are here [[link]](/QGISplugin).<br/>
+There are three ways of accessing the tool, the first and fastest one is through Python's momepy package, find details here [[link]](https://docs.momepy.org/en/latest/api/momepy.COINS.html). Second way is the Python script version, which can be found here [[link]](/PythonTool). Third way of accessing is the QGIS plugin, source code and details are here [[link]](/QGISplugin).<br/>
 
 **Suggested citation**<br/>
 Tripathy, P., Rao, P., Balakrishnan, K., & Malladi, T. (2021). An open-source tool to extract natural continuity and hierarchy of urban street networks. _Environment and Planning B: Urban Analytics and City Science_, 48(8), 2188-2205. [http://dx.doi.org/10.1177/2399808320967680](http://dx.doi.org/10.1177/2399808320967680)<br/>
